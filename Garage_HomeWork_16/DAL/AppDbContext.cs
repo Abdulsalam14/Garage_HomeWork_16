@@ -14,6 +14,7 @@ namespace Garage_HomeWork_16.DAL
         public DbSet<ContactCard> ContactCards { get; set; }
         public DbSet<Contact> Contact { get; set; }
 
+        public DbSet<RecentWork> RecentWorks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Card>().HasData(
@@ -145,6 +146,49 @@ namespace Garage_HomeWork_16.DAL
                     ContactId = 1
                 }
             );
+            modelBuilder.Entity<RecentWork>().HasData(
+                new RecentWork()
+                {
+                    Id = 1,
+                    Title = "Social Media",
+                    Text = "Ullamco laboris nisi ut aliquip ex",
+                    ImagePath = "/assets/img/recent-work-01.jpg"
+                },
+                new RecentWork()
+                {
+                    Id = 2,
+                    Title = "Web Marketing",
+                    Text = "Psum officia anim id est laborum.",
+                    ImagePath = "/assets/img/recent-work-02.jpg"
+                },
+                new RecentWork()
+                {
+                    Id = 3,
+                    Title = "R & D",
+                    Text = "Sum dolor sit consencutur",
+                    ImagePath = "/assets/img/recent-work-03.jpg"
+                },
+                new RecentWork()
+                {
+                    Id = 4,
+                    Title = "Public Relation",
+                    Text = "Lorem ipsum dolor sit amet",
+                    ImagePath = "/assets/img/recent-work-04.jpg"
+                },
+                new RecentWork()
+                {
+                    Id = 5,
+                    Title = "Branding",
+                    Text = "Put enim ad minim veniam",
+                    ImagePath = "/assets/img/recent-work-05.jpg"
+                },
+                new RecentWork()
+                {
+                    Id = 6,
+                    Title = "Creative Design",
+                    Text = "Mollit anim id est laborum.",
+                    ImagePath = "/assets/img/recent-work-06.jpg"
+                });
         }
     }
 }

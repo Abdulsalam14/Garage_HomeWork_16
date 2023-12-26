@@ -17,8 +17,8 @@ namespace Garage_HomeWork_16.Controllers
         public async Task<IActionResult> Index()
         {
             var cards = await _context.Cards.ToListAsync();
-
-            HomeIndexViewModel model = new HomeIndexViewModel() { Cards= cards };
+            var recentWorks= await _context.RecentWorks.ToListAsync();
+            HomeIndexViewModel model = new HomeIndexViewModel() { Cards= cards ,RecentWorks=recentWorks};
             return View(model);
         }
     }

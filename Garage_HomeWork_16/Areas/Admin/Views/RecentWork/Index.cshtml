@@ -1,0 +1,41 @@
+﻿@using Garage_HomeWork_16.Models;
+@model List<RecentWork>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h5 class="card-title">Categories</h5>
+            <div class="col-2">
+                <a asp-action="create" asp-controller="recentwork" asp-area="admin" class="btn btn-outline-success">Create Work</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Text</th>
+                        <th scope="col">ImagePath</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var recentWork in Model)
+                    {
+                        <tr>
+                            <th>@recentWork.Id</th>
+                            <td>@recentWork.Title</td>
+                            <td>@recentWork.Text</td>
+                            <td>@recentWork.ImagePath</td>
+                            <td>
+                                <a class="btn btn-outline-warning text-white" asp-action="edit" asp-controller="recentwork" asp-area="admin" asp-route-id="@recentWork.Id">Edit</a>
+                                <a class="btn btn-outline-danger text-white" asp-action="delete" asp-controller="recentwork" asp-area="admin" asp-route-id="@recentWork.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

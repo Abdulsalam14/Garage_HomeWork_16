@@ -5,5 +5,6 @@ namespace Garage_HomeWork_16.ViewModels.Home
     public class HomeIndexViewModel
     {
         public List<Card>? Cards { get; set; }
+        public List <RecentWork>? RecentWorks { get; set; }
     }
 }

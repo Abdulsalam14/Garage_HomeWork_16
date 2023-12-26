@@ -96,6 +96,7 @@ namespace Garage_HomeWork_16.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -412,6 +413,75 @@ namespace Garage_HomeWork_16.Migrations
                             Description = "<h3 class=\"h4 regular-400\">Elit, sed do eiusmod tempor</h3><p class=\"light-300\">Vector illustration is from <a rel=\"nofollow\" href=\"https://storyset.com/\" target=\"_blank\">StorySet</a>.Incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>",
                             FilePath = "/banner-img-01.svg",
                             Title = "Contact"
+                        });
+                });
+
+            modelBuilder.Entity("Garage_HomeWork_16.Models.RecentWork", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RecentWorks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImagePath = "/assets/img/recent-work-01.jpg",
+                            Text = "Ullamco laboris nisi ut aliquip ex",
+                            Title = "Social Media"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImagePath = "/assets/img/recent-work-02.jpg",
+                            Text = "Psum officia anim id est laborum.",
+                            Title = "Web Marketing"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImagePath = "/assets/img/recent-work-03.jpg",
+                            Text = "Sum dolor sit consencutur",
+                            Title = "R & D"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImagePath = "/assets/img/recent-work-04.jpg",
+                            Text = "Lorem ipsum dolor sit amet",
+                            Title = "Public Relation"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImagePath = "/assets/img/recent-work-05.jpg",
+                            Text = "Put enim ad minim veniam",
+                            Title = "Branding"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImagePath = "/assets/img/recent-work-06.jpg",
+                            Text = "Mollit anim id est laborum.",
+                            Title = "Creative Design"
                         });
                 });
 
