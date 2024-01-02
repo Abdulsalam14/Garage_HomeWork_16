@@ -59,7 +59,7 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedwork = await _dbContext.RecentWorks.FirstOrDefaultAsync(c => c.Id == id);
@@ -72,6 +72,7 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var updatedwork = await _dbContext.RecentWorks.FirstOrDefaultAsync(c => c.Id == id);
+            if (updatedwork == null) return NotFound();
             return View(updatedwork);
         }
 
@@ -105,6 +106,14 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
             _dbContext.RecentWorks.Update(recentWork);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var currentWork = await _dbContext.RecentWorks.FirstOrDefaultAsync(c => c.Id == id);
+            if (currentWork == null) return NotFound();
+            return View(currentWork);
         }
     }
 

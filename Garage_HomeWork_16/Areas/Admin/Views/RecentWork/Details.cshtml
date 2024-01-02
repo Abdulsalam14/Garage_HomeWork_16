@@ -1,0 +1,27 @@
+﻿@using Garage_HomeWork_16.Models;
+@model RecentWork
+
+<h2>Details</h2>
+
+<div>
+    <h4>Id: @Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            <img style="width: 200px" src="@Model.ImagePath" alt="Image">
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-dark text-white" asp-action="Index" asp-controller="recentwork" asp-area="admin">Back to List</a>
+</div>
