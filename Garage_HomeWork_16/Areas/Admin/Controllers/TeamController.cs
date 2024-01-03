@@ -1,4 +1,5 @@
 ﻿using Garage_HomeWork_16.DAL;
+using Garage_HomeWork_16.Helpers;
 using Garage_HomeWork_16.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,13 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IFileService _fileService;
 
-        public TeamController(AppDbContext dbContext, IWebHostEnvironment hostEnvironment)
+        public TeamController(AppDbContext dbContext, IWebHostEnvironment hostEnvironment, IFileService fileService)
         {
             _dbContext = dbContext;
             _hostEnvironment = hostEnvironment;
+            _fileService = fileService;
         }
         public async Task<IActionResult> Index()
         {
@@ -22,6 +25,7 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
 
             return View(members);
         }
+        #region Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -31,28 +35,26 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
         public async Task<IActionResult> Create(TeamMember member)
         {
             if (!ModelState.IsValid) return View(member);
-            if (!member.Photo.ContentType.Contains("image/"))
+            if (!_fileService.IsImage(member.Photo))
             {
                 ModelState.AddModelError("Photo", "File Image Formatinda olmalidir");
                 return View(member);
             }
-            if (member.Photo.Length / 1024 > 60)
+            int maxSize = 60;
+            if (!_fileService.CheckSize(member.Photo,maxSize))
             {
-                ModelState.AddModelError("Photo", "Image Size 60 kb dan coxdur");
+                ModelState.AddModelError("Photo", $"Image Size {maxSize} kb dan coxdur");
                 return View(member);
             }
-            var fileName = $"{Guid.NewGuid()}_{member.Photo.FileName}";
-            var path = Path.Combine(_hostEnvironment.WebRootPath, "assets/img", fileName);
-            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
-            {
-                await member.Photo.CopyToAsync(fs);
-            }
-            member.PhotoName = fileName;
+            member.PhotoName = await _fileService.UploadAsync(member.Photo);
             await _dbContext.AddAsync(member);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+
+        #region Delete
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -60,14 +62,13 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
             var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "assets/img", deletedMember?.PhotoName!);
             _dbContext.TeamMembers.Remove(deletedMember!);
             await _dbContext.SaveChangesAsync();
-            if (System.IO.File.Exists(imagePath))
-            {
-                System.IO.File.Delete(imagePath);
-            }
+            _fileService.DeleteFile(imagePath);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
 
+        #region Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -79,9 +80,7 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(TeamMember member)
         {
-            var existingMember = await _dbContext.TeamMembers.AsNoTracking().FirstOrDefaultAsync(c => c.Id == member.Id);
-            member.PhotoName = existingMember?.PhotoName;
-            if (member.Photo == null || member.Photo.Length == 0)
+            if (member.Photo == null)
             {
                 ModelState.Remove("Photo");
             }
@@ -90,34 +89,29 @@ namespace Garage_HomeWork_16.Areas.Admin.Controllers
                 return View(member);
             }
 
-            if (member.Photo != null && member.Photo.Length > 0)
+            if (member.Photo != null)
             {
-                if (!member.Photo.ContentType.Contains("image/"))
+                if (!_fileService.IsImage(member.Photo))
                 {
                     ModelState.AddModelError("Photo", "File Image Formatinda olmalidir");
                     return View(member);
                 }
-                if (member.Photo.Length / 1024 > 60)
+                int maxsize = 60;
+                if (!_fileService.CheckSize(member.Photo,maxsize))
                 {
-                    ModelState.AddModelError("Photo", "Image Size 60 kb dan coxdur");
+                    ModelState.AddModelError("Photo", $"Image Size {maxsize} kb dan coxdur");
                     return View(member);
                 }
                 string filePath = Path.Combine(_hostEnvironment.WebRootPath, "assets/img", member.PhotoName);
 
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create,FileAccess.ReadWrite))
-                {
-                    await member.Photo.CopyToAsync(fileStream);
-                }
+                _fileService.DeleteFile(filePath);
+                member.PhotoName= await _fileService.UploadAsync(member.Photo);
             }
             _dbContext.TeamMembers.Update(member);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
     }
 }

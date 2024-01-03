@@ -1,8 +1,11 @@
 using Garage_HomeWork_16.DAL;
+using Garage_HomeWork_16.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IFileService,FileService>();
 
 var connection = builder.Configuration.GetConnectionString("myconn");
 
