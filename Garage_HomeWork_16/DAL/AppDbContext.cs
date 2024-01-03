@@ -14,8 +14,8 @@ namespace Garage_HomeWork_16.DAL
         public DbSet<ContactCard> ContactCards { get; set; }
         public DbSet<Contact> Contact { get; set; }
         public DbSet<RecentWork> RecentWorks { get; set; }
-
         public DbSet<PricingItem> PricingItems { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Card>().HasData(
@@ -190,61 +190,86 @@ namespace Garage_HomeWork_16.DAL
                     Text = "Mollit anim id est laborum.",
                     ImagePath = "/assets/img/recent-work-06.jpg"
                 });
-                modelBuilder.Entity<PricingItem>().HasData(
-                new PricingItem()
-                {
-                    Id = 1,
-                    Title = "Free",
-                    UserCount = "5 Users",
-                    SpaceSize = 2,
-                    Description = "Community Forums",
-                    Cost = 0
-                },
-                new PricingItem()
-                {
-                    Id = 2,
-                    Title = "Standart",
-                    UserCount = "25  to 99 Users",
-                    SpaceSize = 10,
-                    Description = "Live Chat",
-                    Cost = 120
-                },
-                new PricingItem()
-                {
-                    Id = 3,
-                    Title = "Enterprise",
-                    UserCount = "100 Users or more",
-                    SpaceSize = 80,
-                    Description = "Customizations",
-                    Cost = 840
-                },
-                new PricingItem()
-                {
-                    Id = 4,
-                    Title = "Title4",
-                    UserCount = "15 Users",
-                    SpaceSize = 15,
-                    Description = "Description4",
-                    Cost = 150
-                },
-                new PricingItem()
-                {
-                    Id = 5,
-                    Title = "Title5",
-                    UserCount = "50 Users",
-                    SpaceSize = 25,
-                    Description = "Description5",
-                    Cost = 100
-                },
-                new PricingItem()
-                {
-                    Id = 6,
-                    Title = "Title6",
-                    UserCount = "65 Users",
-                    SpaceSize = 30,
-                    Description = "Description6",
-                    Cost = 60
-                });
+            modelBuilder.Entity<PricingItem>().HasData(
+            new PricingItem()
+            {
+                Id = 1,
+                Title = "Free",
+                UserCount = "5 Users",
+                SpaceSize = 2,
+                Description = "Community Forums",
+                Cost = 0
+            },
+            new PricingItem()
+            {
+                Id = 2,
+                Title = "Standart",
+                UserCount = "25  to 99 Users",
+                SpaceSize = 10,
+                Description = "Live Chat",
+                Cost = 120
+            },
+            new PricingItem()
+            {
+                Id = 3,
+                Title = "Enterprise",
+                UserCount = "100 Users or more",
+                SpaceSize = 80,
+                Description = "Customizations",
+                Cost = 840
+            },
+            new PricingItem()
+            {
+                Id = 4,
+                Title = "Title4",
+                UserCount = "15 Users",
+                SpaceSize = 15,
+                Description = "Description4",
+                Cost = 150
+            },
+            new PricingItem()
+            {
+                Id = 5,
+                Title = "Title5",
+                UserCount = "50 Users",
+                SpaceSize = 25,
+                Description = "Description5",
+                Cost = 100
+            },
+            new PricingItem()
+            {
+                Id = 6,
+                Title = "Title6",
+                UserCount = "65 Users",
+                SpaceSize = 30,
+                Description = "Description6",
+                Cost = 60
+            });
+            modelBuilder.Entity<TeamMember>().HasData(
+            new TeamMember()
+            {
+                Id = 1,
+                Name = "John",
+                Surname = "Doe",
+                Position = "Business Development",
+                PhotoName = "team-01.jpg",
+            },
+            new TeamMember()
+            {
+                Id = 2,
+                Name = "Jane",
+                Surname = "Doe",
+                Position = "Media Development",
+                PhotoName = "team-02.jpg",
+            },
+            new TeamMember()
+            {
+                Id = 3,
+                Name = "Sam",
+                Surname = "",
+                Position = "Developer",
+                PhotoName = "team-03.jpg",
+            });
         }
     }
 }

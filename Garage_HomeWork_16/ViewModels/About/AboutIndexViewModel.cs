@@ -5,5 +5,7 @@ namespace Garage_HomeWork_16.ViewModels.About
     public class AboutIndexViewModel
     {
         public List<AimItem>? AimItems { get; set; }
+
+        public List<TeamMember>? TeamMembers { get; set; }
     }
 }

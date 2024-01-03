@@ -1,0 +1,45 @@
+﻿@using Garage_HomeWork_16.Models;
+@model List<TeamMember>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">TeamMembers</h5>
+        <div class="d-flex">
+            <div class="col-2">
+                <a asp-action="create" asp-controller="Team" asp-area="admin" class="btn btn-outline-success">Create New Member</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">FullName</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model)
+                    {
+                        <tr>
+                            <th>@member.Id</th>
+                            <td>
+                                <img style="width: 100px" src="~/assets/img/@member.PhotoName">
+                            </td>
+                            <td>@member.Name @member.Surname</td>
+                            <td>@member.Position</td>
+                            <td>
+                                <a class="btn btn-outline-warning text-white" asp-action="edit" asp-controller="team" asp-area="admin" asp-route-id="@member.Id">Edit</a>
+                                <form method="post" asp-action="Delete" asp-controller="team" asp-area="admin" asp-route-id="@member.Id" style="display:inline">
+                                    <button class="btn btn-outline-danger text-white" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
