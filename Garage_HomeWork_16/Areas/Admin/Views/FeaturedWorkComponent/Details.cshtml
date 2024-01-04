@@ -1,0 +1,52 @@
+﻿@using Garage_HomeWork_16.Models;
+@model FeaturedWorkComponent
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Featuredworkcomponent Details</div>
+        <hr>
+
+        <div>
+
+            <h5>Id: @Model.Id</h5>
+            <hr>
+
+            <h5>Title: @Model.Title</h5>
+            <hr>
+
+            <h5>Description </h5>
+            <span style="color:white">@Html.Raw(Model.Description)</span>
+        </div>
+
+        <hr>
+        <h5 style="text-align:center">Photos </h5>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Photo</th>
+                        @* <th scope="col">FetureWorkComponentID</th> *@
+                        <th scope="col">Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var photo in Model.FeaturedWorkComponentPhotos)
+                        {
+                            <tr>
+                                <td>@photo.Id</td>
+                                <td>
+                                    <img style="width:200px;height:150px;object-fit:cover" class="img-thumbnail" src="~/assets/img/@photo.PhotoPath" />
+                                </td>
+                                <td>@photo.Order</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-primary" asp-action="index" asp-controller="featuredworkcomponent" asp-area="admin">Back</a>
+    </div>
+</div>

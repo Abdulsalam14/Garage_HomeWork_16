@@ -16,6 +16,9 @@ namespace Garage_HomeWork_16.DAL
         public DbSet<RecentWork> RecentWorks { get; set; }
         public DbSet<PricingItem> PricingItems { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<FeaturedWorkComponent> FeaturedWorkComponent { get; set; }
+
+        public DbSet<FeaturedWorkComponentPhoto> FeaturedWorkComponentPhotos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Card>().HasData(
@@ -270,6 +273,43 @@ namespace Garage_HomeWork_16.DAL
                 Position = "Developer",
                 PhotoName = "team-03.jpg",
             });
+            modelBuilder.Entity<FeaturedWorkComponent>().HasData(
+                new FeaturedWorkComponent()
+                {
+                    Id = 1,
+                    Title = "Featured Work",
+                    Description = "<h2><strong>Transform with us</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>"
+                });
+            modelBuilder.Entity<FeaturedWorkComponentPhoto>().HasData(
+                new FeaturedWorkComponentPhoto()
+                {
+                    Id = 1,
+                    Order = 1,
+                    FeaturedWorkComponentId = 1,
+                    PhotoPath = "feature-work-1.jpg"
+                },
+                new FeaturedWorkComponentPhoto()
+                {
+                    Id = 2,
+                    Order = 2,
+                    FeaturedWorkComponentId = 1,
+                    PhotoPath = "feature-work-2.jpg"
+                },
+                new FeaturedWorkComponentPhoto()
+                {
+                    Id = 3,
+                    Order = 3,
+                    FeaturedWorkComponentId = 1,
+                    PhotoPath = "feature-work-3.jpg"
+                },
+                new FeaturedWorkComponentPhoto()
+                {
+                    Id = 4,
+                    Order = 4,
+                    FeaturedWorkComponentId = 1,
+                    PhotoPath = "feature-work-4.jpg"
+                });
+
         }
     }
 }

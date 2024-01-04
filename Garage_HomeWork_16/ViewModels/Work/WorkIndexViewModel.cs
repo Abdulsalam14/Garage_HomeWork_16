@@ -6,5 +6,7 @@ namespace Garage_HomeWork_16.ViewModels.Work
     {
         public List<Category> Categories { get; set; }
         public List<CategoryComponent> CategoryComponents { get; set; }
+
+        public FeaturedWorkComponent FeaturedWorkComponent { get; set; }
     }
 }

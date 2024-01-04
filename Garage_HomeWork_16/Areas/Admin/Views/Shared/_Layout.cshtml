@@ -68,8 +68,8 @@
                 </li>
 
                 <li>
-                    <a href="calendar.html">
-                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                    <a asp-controller="FeaturedWorkComponent" asp-action="index" asp-area="admin">
+                        <i class="zmdi zmdi-calendar-check"></i> <span>FeatureWorkComponent</span>
                         <small class="badge float-right badge-light">New</small>
                     </a>
                 </li>
@@ -246,6 +246,6 @@
     <!-- Index js -->
     <script src="~/admin/assets/js/index.js"></script>
 
-
+    @RenderSection("Scripts", false)
 </body>
 </html>

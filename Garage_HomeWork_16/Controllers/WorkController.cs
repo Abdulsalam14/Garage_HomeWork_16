@@ -14,10 +14,14 @@ namespace Garage_HomeWork_16.Controllers
         {
             var categories =await _context.Categories.ToListAsync();
             var categoryComponents=await _context.CategoryComponents.Include(c => c.Categories).ToListAsync();
+            var featureWorkComponent=await _context.FeaturedWorkComponent.Include(f=>f.FeaturedWorkComponentPhotos.OrderBy(p=>p.Order))
+                .FirstOrDefaultAsync();
             var model = new WorkIndexViewModel
             {
                 Categories = categories,
-                CategoryComponents = categoryComponents
+                CategoryComponents = categoryComponents,
+                FeaturedWorkComponent = featureWorkComponent
+
             };
             return View(model);
         }
